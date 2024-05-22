@@ -1,78 +1,60 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField
-
-
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret_key'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Register')
 
-def savedUser(username, password):
-   with open('userfile.txt', 'a') as f:
-        f.write(f"{username}:{password}\n")
-
-def get_user(username):
-    with open('userfile.txt', 'r') as f:
-        for line in f:
-            stored_username, stored_password = line.strip().split(':')
-            if stored_username == username:
-                return stored_password
-    return None
-
-def log(username, password):
-    with open('userfile.txt', 'r') as f:
-        for line in f:
-            stored_username, stored_password = line.strip().split(':')
-            if stored_username == username and stored_password == password:
-                return True
-    return False   
-
 @app.route('/')
-def index():    
+def index():
     return render_template('index.html')
 
-@app.route('/register', methods=['GET','POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-
     form = RegistrationForm()
     if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-
-        print(username, password)
-
-        # Print the contents of the userfile.txt for debugging
-        savedUser(username, password)
-        with open('userfile.txt', 'r') as f:
-            print("Contents of userfile.txt:")
-            print(f.read())
-
+        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
+        new_user = User(username=form.username.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Your account has been created!', 'success')
+        return redirect(url_for('index'))
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['POST'])
 def login():
-    print("Request Form:", request.form)
     username = request.form['username']
     password = request.form['password']
+    user = User.query.filter_by(username=username).first()
+    if user and check_password_hash(user.password, password):
 
-    if username is None or password is None:
-        return 'Missing username or password'
-
-    if log(username, password):
-        return 'Login successful!'
+        return redirect(url_for('login_success'))
     else:
-        return render_template('index.html', alert_message="Invalid username or password")
+        flash('Invalid username or password', 'danger')
+        return redirect(url_for('index'))
 
-    
+@app.route('/login/success')
+def login_success():
+    return 'Login successful!'
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
-

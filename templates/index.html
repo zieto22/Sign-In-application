@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
-
-
 <div class="container bg-antiquewhite">
     <div class="row justify-content-center mt-5">
         <div class="col-md-6">
@@ -35,21 +32,17 @@
             </div>
         </div>
     </div>
-  {% if alert_message %}
-  <div class="alert alert-danger  mt-3" id="error">
-        <p>{{ alert_message }}</p>
-  </div>
-  {% endif %}
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} mt-3" id="error">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </div>
-
-
-
-
 <script>
-
-
 </script>
-
 </body>
 </html>
