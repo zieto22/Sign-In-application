@@ -1,4 +1,4 @@
-# Sign in application
+# Todo list application
 
 Provide a one or two paragraph overview of your project here. This section should explain what the project does, the problem it solves, and its target audience or use cases.
 
