@@ -1,6 +1,6 @@
-# Todo list application
+# Flask Todo List Application
 
-Provide a one or two paragraph overview of your project here. This section should explain what the project does, the problem it solves, and its target audience or use cases.
+This is a simple web application built with Flask that allows users to register, log in, and manage a personal todo list. The project demonstrates basic user authentication, session management, and CRUD operations for managing todo items. It is targeted at developers looking to learn how to create a web application with user authentication and a simple todo list functionality.
 
 ## Table of Contents
 
@@ -16,16 +16,32 @@ Provide a one or two paragraph overview of your project here. This section shoul
 Follow these steps to install the project locally:
 
 ```bash
-git clone https://github.com/yourusername/yourprojectname.git
-cd yourprojectname
+# Clone the repository
+git clone https://github.com/yourusername/flask-todo-list.git
+cd flask-todo-list
+
+# Create a virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
 # Install necessary dependencies
 pip install -r requirements.txt
-# etc
+
+# Set up the database
+python setup_database.py
+
+# Run the application
+python run.py
 ```
 
 ## Usage
 
-Here's how you can get started with using the project. Include code examples and screenshots to make the usage instructions clear:
+Here's how you can get started with using the project.
+
+Open a web browser and navigate to http://localhost:5000.
+Register a new account by clicking on "Create Account".
+Log in with your new account.
+Manage your todo list by adding, completing, or deleting tasks
 
 ```python
 # Example usage
@@ -39,22 +55,23 @@ yourpackage.do_something()
 
 List the key features of your project here. Describe what makes your project stand out:
 
-- Feature 1: Description of what this feature does and how it benefits users.
-- Feature 2: Description of what this feature does and how it benefits users.
-- Feature 3: Description of what this feature does and how it benefits users.
+- User Registration and Authentication: Secure registration and login functionality using hashed passwords.
+- Todo List Management: Add, complete, and delete todo items.
+- Session Management: User sessions to keep track of logged-in users.
+- Responsive Design: Simple and responsive user interface using Bootstrap.
 
 ## License
 
-This project is licensed under [your_license](./LICENSE). For more details, see the `LICENSE` file.
+This project is licensed under the MIT License. For more details, see the LICENSE file.
 
 ## Contact
 
-Your Name - [LinkedIn](https://www.linkedin.com/in/your linkedin/) - Replace with your contact information
+Your Name - Zion Temo - Replace with your contact information
 
-Project Link: [https://github.com/yourusername/yourprojectname](https://github.com/yourusername/yourprojectname)
+Project Link: https://github.com/zieto22/Todo-list-application
 
 ## Acknowledgments
 
-- Thanks to those whose code was utilized
-- Inspiration sources
-- Additional acknowledgments
+Thanks to the Flask and SQLAlchemy communities for their excellent documentation and support.
+Inspiration from various Flask tutorials and projects.
+Bootstrap for providing a responsive design framework.
