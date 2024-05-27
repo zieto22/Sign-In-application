@@ -16,11 +16,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class User(db.Model):
+    """Represents a user in the application."""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
 
 class Todo(db.Model):
+    """Represents a todo item in the application."""
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(200), nullable=False)
     completed = db.Column(db.Boolean, default=False)
@@ -28,16 +30,19 @@ class Todo(db.Model):
     user = db.relationship('User', backref=db.backref('todos', lazy=True))
 
 class RegistrationForm(FlaskForm):
+    """Form for user registration."""
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Register')
 
 @app.route('/')
 def index():
+    """Renders the index page."""
     return render_template('index.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """Handles user registration."""
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
@@ -50,6 +55,7 @@ def register():
 
 @app.route('/login', methods=['POST'])
 def login():
+    """Handles user login."""
     username = request.form['username']
     password = request.form['password']
     user = User.query.filter_by(username=username).first()
@@ -62,11 +68,13 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """Handles user logout."""
     session.pop('user_id', None)
     return redirect(url_for('index'))
 
 @app.route('/todos', methods=['GET', 'POST'])
 def todo_list():
+    """Renders the todo list page and handles todo creation."""
     if 'user_id' not in session:
         return redirect(url_for('index'))
     user_id = session['user_id']
@@ -86,6 +94,7 @@ def todo_list():
 
 @app.route('/todo/<int:todo_id>/complete', methods=['POST'])
 def complete_todo(todo_id):
+    """Handles marking a todo as completed or not completed."""
     todo = Todo.query.get(todo_id)
     if todo:
         todo.completed = not todo.completed
@@ -94,6 +103,7 @@ def complete_todo(todo_id):
 
 @app.route('/todo/<int:todo_id>/delete', methods=['POST'])
 def delete_todo(todo_id):
+    """Handles deleting a todo."""
     todo = Todo.query.get(todo_id)
     if todo:
         db.session.delete(todo)
