@@ -39,16 +39,63 @@ python run.py
 Here's how you can get started with using the project.
 
 Open a web browser and navigate to http://localhost:5000.
-Register a new account by clicking on "Create Account".
-Log in with your new account.
-Manage your todo list by adding, completing, or deleting tasks
+- Register a new account by clicking on "Create Account".
+``` python
+# Example of user registration code snippet
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
+        new_user = User(username=form.username.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Your account has been created!', 'success')
+        return redirect(url_for('index'))
+    return render_template('register.html', form=form)
+
+```
+- Log in with your new account.
+```python
+
+# Example of user login code snippet
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    user = User.query.filter_by(username=username).first()
+    if user and check_password_hash(user.password, password):
+        session['user_id'] = user.id
+        return redirect(url_for('todo_list'))
+    else:
+        flash('Invalid username or password', 'danger')
+        return redirect(url_for('index'))
+
+
+```
+- Manage your todo list by adding, completing, or deleting tasks
 
 ```python
-# Example usage
-import yourpackage
+# Example of adding a todo item code snippet
+@app.route('/todos', methods=['GET', 'POST'])
+def todo_list():
+    if 'user_id' not in session:
+        return redirect(url_for('index'))
+    user_id = session['user_id']
+    user = User.query.get(user_id)
+    form = TodoForm()
+    if form.validate_on_submit():
+        new_todo = Todo(
+            description=form.description.data,
+            completed=False,
+            user_id=user_id
+        )
+        db.session.add(new_todo)
+        db.session.commit()
+        return redirect(url_for('todo_list'))
+    todos = Todo.query.filter_by(user_id=user_id).all()
+    return render_template('todos.html', todos=todos, form=form)
 
-# Call a function from your package
-yourpackage.do_something()
 ```
 
 ## Features
