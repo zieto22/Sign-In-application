@@ -113,7 +113,7 @@ This project is licensed under the MIT License. For more details, see the LICENS
 
 ## Contact
 
-Your Name - Zion Temo - Replace with your contact information
+Contact info - Zion Temo - Zion.temo@elev.ga.ntig.se
 
 Project Link: https://github.com/zieto22/Todo-list-application
 
