@@ -17,7 +17,7 @@ Follow these steps to install the project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/flask-todo-list.git
+git clone https://github.com/zieto22/Todo-list-application
 cd flask-todo-list
 
 # Create a virtual environment (optional but recommended)
@@ -31,7 +31,7 @@ pip install -r requirements.txt
 python setup_database.py
 
 # Run the application
-python run.py
+python app.py
 ```
 
 ## Usage
