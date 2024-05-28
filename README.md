@@ -100,7 +100,7 @@ def todo_list():
 
 ## Features
 
-List the key features of your project here. Describe what makes your project stand out:
+some Key features to this application are
 
 - User Registration and Authentication: Secure registration and login functionality using hashed passwords.
 - Todo List Management: Add, complete, and delete todo items.
