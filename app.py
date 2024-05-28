@@ -31,7 +31,7 @@ class Todo(db.Model):
 
 class RegistrationForm(FlaskForm):
     """Form for user registration."""
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=6, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Register')
 
