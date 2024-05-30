@@ -98,8 +98,9 @@ def todo_list():
     return render_template('todos.html', todos=todos, form=form)
 
 ```
-
+- Completing a Todo Item
 ```python
+# Example of Completing a Todo Item
 @app.route('/complete_todo/<int:todo_id>', methods=['POST'])
 def complete_todo(todo_id):
     todo = Todo.query.get(todo_id)
@@ -108,7 +109,7 @@ def complete_todo(todo_id):
         db.session.commit()
     return redirect(url_for('todo_list'))
 ```
-
+- Deleting a todo item
 ```python
 # Example of Deleting a todo item code snippet
 @app.route('/delete_todo/<int:todo_id>', methods=['POST'])
