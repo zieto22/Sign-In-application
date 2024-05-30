@@ -19,7 +19,7 @@ Follow these steps to install the project locally:
 ```bash
 # Clone the repository
 git clone https://github.com/zieto22/Todo-list-application
-cd flask-todo-list
+cd Todo-list-application
 
 # Create a virtual environment (optional but recommended)
 python -m venv venv
