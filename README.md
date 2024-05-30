@@ -40,6 +40,7 @@ Here's how you can get started with using the project.
 Open a web browser and navigate to http://localhost:5000.
 - Register a new account by clicking on "Create Account".
 ``` python
+
 # Example of user registration code snippet
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -52,6 +53,7 @@ def register():
         flash('Your account has been created!', 'success')
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
+
 
 ```
 - Log in with your new account.
@@ -96,6 +98,17 @@ def todo_list():
     return render_template('todos.html', todos=todos, form=form)
 
 ```
+
+```python
+@app.route('/complete_todo/<int:todo_id>', methods=['POST'])
+def complete_todo(todo_id):
+    todo = Todo.query.get(todo_id)
+    if todo:
+        todo.completed = True
+        db.session.commit()
+    return redirect(url_for('todo_list'))
+```
+
 ```python
 # Example of Deleting a todo item code snippet
 @app.route('/delete_todo/<int:todo_id>', methods=['POST'])
