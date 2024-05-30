@@ -35,7 +35,7 @@ python app.py
 
 ## Usage
 
-Here's how you can get started with using the project.
+Here's how you can get started with using the project and different functions.
 
 Open a web browser and navigate to http://localhost:5000.
 - Register a new account by clicking on "Create Account".
