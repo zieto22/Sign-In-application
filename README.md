@@ -28,8 +28,6 @@ source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 # Install necessary dependencies
 pip install flask flask_wtf flask flask_sqlalchemy
 
-# Set up the database
-python setup_database.py
 
 # Run the application
 python app.py
