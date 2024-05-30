@@ -19,17 +19,15 @@ Follow these steps to install the project locally:
 ```bash
 # Clone the repository
 git clone https://github.com/zieto22/Todo-list-application
-cd flask-todo-list
+cd Todo-list-application
 
 # Create a virtual environment (optional but recommended)
 python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
 # Install necessary dependencies
-pip install flask flask_wtf flask flask_sqlalchemy
+pip install flask flask_wtf flask_sqlalchemy
 
-# Set up the database
-python setup_database.py
 
 # Run the application
 python app.py
