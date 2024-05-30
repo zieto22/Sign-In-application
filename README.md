@@ -1,7 +1,8 @@
 # Flask Todo List Application
 
-This is a simple web application built with Flask that allows users to register, log in, and manage a personal todo list. The project demonstrates basic user authentication, session management, and CRUD operations for managing todo items. It is targeted at developers looking to learn how to create a web application with user authentication and a simple todo list functionality.
+This is a simple web application built with Flask that allows users to register, log in, and manage a personal todo list. The project demonstrates basic user authentication, session management, and CRUD operations for managing todo items. It is targeted at developers looking to learn how to create a web application with user authentication and simple todo list functionality.
 
+This application provides an excellent starting point for those new to web development with Flask. It covers essential aspects such as user registration and login, secure password handling, and maintaining user-specific data. The todo list functionality allows users to add, complete, and delete tasks, showcasing the CRUD (Create, Read, Update, Delete) operations.
 ## Table of Contents
 
 - [Installation](#installation)
@@ -17,7 +18,7 @@ Follow these steps to install the project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/flask-todo-list.git
+git clone https://github.com/zieto22/Todo-list-application
 cd flask-todo-list
 
 # Create a virtual environment (optional but recommended)
@@ -25,13 +26,13 @@ python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 
 # Install necessary dependencies
-pip install -r requirements.txt
+pip install flask flask_wtf flask flask_sqlalchemy
 
 # Set up the database
 python setup_database.py
 
 # Run the application
-python run.py
+python app.py
 ```
 
 ## Usage
@@ -100,7 +101,7 @@ def todo_list():
 
 ## Features
 
-List the key features of your project here. Describe what makes your project stand out:
+some Key features to this application are
 
 - User Registration and Authentication: Secure registration and login functionality using hashed passwords.
 - Todo List Management: Add, complete, and delete todo items.
