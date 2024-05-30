@@ -96,7 +96,16 @@ def todo_list():
     return render_template('todos.html', todos=todos, form=form)
 
 ```
-
+```python
+# Example of Deleting a todo item code snippet
+@app.route('/delete_todo/<int:todo_id>', methods=['POST'])
+def delete_todo(todo_id):
+    todo = Todo.query.get(todo_id)
+    if todo:
+        db.session.delete(todo)
+        db.session.commit()
+    return redirect(url_for('todo_list'))
+```
 ## Features
 
 some Key features to this application are
