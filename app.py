@@ -45,7 +45,7 @@ class Todo(db.Model):
 
 class RegistrationForm(FlaskForm):
     """
-    Represents a registration form for new users.
+     Represents a registration form for new users.
 
     Attributes:
         username (str): The username entered by the user.
